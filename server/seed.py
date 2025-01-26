@@ -13,29 +13,20 @@ with app.app_context():
     RestaurantPizza.query.delete()
 
     print("Creating restaurants...")
-    shack = Restaurant(name="Karen's Pizza Shack", address='address1')
-    bistro = Restaurant(name="Sanjay's Pizza", address='address2')
-    palace = Restaurant(name="Kiki's Pizza", address='address3')
-    restaurants = [shack, bistro, palace]
+    r1 = Restaurant(name="Pizza Hut", address="123 Main St")
+    r2 = Restaurant(name="Domino's", address="456 Elm St")
+    r3 = Restaurant(name="Papa John's", address="789 Oak St")
 
     print("Creating pizzas...")
+    p1 = Pizza(name="Cheese", ingredients="Cheese, Tomato Sauce, Dough")
+    p2 = Pizza(name="Pepperoni", ingredients="Pepperoni, Cheese, Tomato Sauce, Dough")
+    p3 = Pizza(name="Veggie", ingredients="Mushrooms, Peppers, Onions, Cheese, Dough")
 
-    cheese = Pizza(name="Emma", ingredients="Dough, Tomato Sauce, Cheese")
-    pepperoni = Pizza(
-        name="Geri", ingredients="Dough, Tomato Sauce, Cheese, Pepperoni")
-    california = Pizza(
-        name="Melanie", ingredients="Dough, Sauce, Ricotta, Red peppers, Mustard")
-    pizzas = [cheese, pepperoni, california]
+    print("Creating restaurant-pizzas...")
+    rp1 = RestaurantPizza(price=15, restaurant=r1, pizza=p1)
+    rp2 = RestaurantPizza(price=20, restaurant=r2, pizza=p2)
+    rp3 = RestaurantPizza(price=12, restaurant=r3, pizza=p3)
 
-    print("Creating RestaurantPizza...")
-
-    pr1 = RestaurantPizza(restaurant=shack, pizza=cheese, price=1)
-    pr2 = RestaurantPizza(restaurant=bistro, pizza=pepperoni, price=4)
-    pr3 = RestaurantPizza(restaurant=palace, pizza=california, price=5)
-    restaurantPizzas = [pr1, pr2, pr3]
-    db.session.add_all(restaurants)
-    db.session.add_all(pizzas)
-    db.session.add_all(restaurantPizzas)
+    db.session.add_all([r1, r2, r3, p1, p2, p3, rp1, rp2, rp3])
     db.session.commit()
-
     print("Seeding done!")
